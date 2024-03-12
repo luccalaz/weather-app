@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Weather App</title>
+		<link rel="stylesheet" href="./bundle.css">
+        <link rel="icon" type="image/x-icon" href="./favicon.ico">
+        <script defer src="bundle.js"></script>
+    </head>
+    <body class="g-base bg-clear">
+        <div class="bg bg-current"></div>
+        <div class="bg bg-new"></div>
+        <div class="g-loading-overlay"></div>
+
+        <nav>
+            <select></select>
+        </nav>
+        <main id="p-main">
+            <div id="s-summary">
+                <div class="city-name">Halifax, NS</div>
+                <div class="cur-temperature g-cur-temp g-info">-°</div>
+                <div class="cur-condition">Sunny</div>
+                <div class="day-high-low">H:<span class="g-info g-cur-high">-°</span> L:<span class="g-info g-cur-low">-°</span></div>
+            </div>
+            <div id="s-blocks">
+                <div class="block hour-summary-block">
+                    <div class="title"></div>
+                    <hr>
+                    <div class="hour-summary-container">
+                        <div class="hour-container">
+                            <div class="time">Now</div>
+                            <div class="icon"><i></i></div>
+                            <div class="temp g-info g-cur-temp"></div>
+                        </div>
+                        <div class="hour-container template" style="display: none;">
+                            <div class="time"></div>
+                            <div class="icon"><i class="wi"></i></div>
+                            <div class="temp g-info"></div>
+                        </div>
+                    </div>  
+                </div>
+                <div class="block ten-day-block">
+                    <div class="title">10-DAY-FORECAST</div>
+                    <hr>
+                    <div class="day-container" id="today">
+                        <div class="weekday">Today</div>
+                        <div class="icon"><i class="wi"></i></div>
+                        <div class="low g-cur-low g-info">-°</div>
+                        <div class="bar-container"><div class="bar"></div></div>
+                        <div class="high g-cur-high g-info">-°</div>
+                    </div>
+                    <div class="day-container template" style="display: none;">
+                        <div class="weekday"></div>
+                        <div class="icon"><i class="wi"></i></div>
+                        <div class="low g-cur-low g-info"></div>
+                        <div class="bar-container"><div class="bar"></div></div>
+                        <div class="high g-cur-high g-info"></div>
+                    </div>
+                    <hr>
+                </div>
+                <div class="block" id="feels_like">
+                    <div class="title">FEELS LIKE</div>
+                    <div class="info g-info">-°</div>
+                    <div class="tooltip">Wind is making it feel colder.</div>
+                </div>
+                <div class="block" id="precipitation">
+                    <div class="title">PRECIPITATION</div>
+                    <div class="info g-info">-</div>
+                    <div class="info2">in last 3h</div>
+                </div>
+                <div class="block" id="humidity">
+                    <div class="title">HUMIDITY</div>
+                    <div class="info g-info">-</div>
+                    <div class="tooltip">The dew point is <span class="g-info dew">-°</span> right now.</div>
+                </div>
+                <div class="block" id="visibility">
+                    <div class="title">VISIBILITY</div>
+                    <div class="info g-info">-</div>
+                    <div class="tooltip">Perfectly clear view.</div>
+                </div>
+                <div class="block" id="pressure">
+                    <div class="title">PRESSURE</div>
+                    <div class="info g-info">-</div>
+                    <div class="tooltip">Air pressure is normal.</div>
+                </div>
+                <div class="block" id="wind">
+                    <div class="title">WIND</div>
+                    <div class="info">
+                        <i></i>
+                        <div class="windSpeed g-info">-</div>
+                    </div>
+                </div>
+            </div>
+            <div id="s-footer">
+                Powered by: <a href="https://openweathermap.org/">OpenWeather API</a> & <a href="https://open-meteo.com/">OpenMeteo API</a> | Inspired by: Apple Weather App
+            </div>
+        </main>
+    </body>
+</html>
