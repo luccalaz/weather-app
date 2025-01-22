@@ -1,4 +1,32 @@
-// importing the sass stylesheet for bundling
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: main.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: main.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// importing the sass stylesheet for bundling
 import "./../sass/styles.scss";
 import "./../lib/weather-icons-master/css/weather-icons.min.css";
 import "./../lib/weather-icons-master/css/weather-icons-wind.min.css";
@@ -68,7 +96,7 @@ function populateDropdown(data) {
     // save dropdown data and start populating HTML
     storage.write("dropdownValue", htmlNavDropdown.value);
     selectedCity = htmlNavDropdown.value.split(",")[0];
-    getJSONData(`https://api.openweathermap.org/data/2.5/weather?q=${selectedCity},CA&units=metric&appid=${process.env.API_KEY}`, populateCurrentWeather, onError);
+    getJSONData(`https://api.openweathermap.org/data/2.5/weather?q=${selectedCity},CA&amp;units=metric&amp;appid=${process.env.API_KEY}`, populateCurrentWeather, onError);
 }
 
 /**
@@ -137,13 +165,13 @@ function populateCurrentWeather(data) {
         document.querySelector(".block#wind .windSpeed").innerHTML = `${data.wind.deg}° | ${Math.round(data.wind.speed * 3.6)} km/h`;
         // visibility adjustment
         if (visibility == 0) {
-            htmlVisibilityData.innerHTML = "<1 km";
+            htmlVisibilityData.innerHTML = "&lt;1 km";
         } else if (visibility == 10) {
             htmlVisibilityData.innerHTML = ">10 km";
         }
 
         // feels like tooltip
-        if (feelsLike < curTemp) {
+        if (feelsLike &lt; curTemp) {
             htmlFeelsLikeTooltip.innerHTML = "Wind is making it feel colder.";
         } else if (feelsLike == curTemp) {
             htmlFeelsLikeTooltip.innerHTML = "Similar to the actual temperature.";
@@ -154,26 +182,26 @@ function populateCurrentWeather(data) {
         // visibility tooltip
         if (visibility == 10) {
             htmlVisibilityTooltip.innerHTML = "Perfectly clear view.";
-        } else if (visibility < 10 && visibility >= 5) {
+        } else if (visibility &lt; 10 &amp;&amp; visibility >= 5) {
             htmlVisibilityTooltip.innerHTML = "Fairly clear view.";
-        } else if (visibility < 5 && visibility >= 3) {
+        } else if (visibility &lt; 5 &amp;&amp; visibility >= 3) {
             htmlVisibilityTooltip.innerHTML = "Clear view.";
-        } else if (visibility < 3 && visibility >= 1) {
+        } else if (visibility &lt; 3 &amp;&amp; visibility >= 1) {
             htmlVisibilityTooltip.innerHTML = "Low visibility.";
-        } else if (visibility < 1) {
+        } else if (visibility &lt; 1) {
             htmlVisibilityTooltip.innerHTML = "Very low visibility.";
         }
 
         // pressure tooltip
         if (data.main.pressure > 1025) {
             htmlPressureTooltip.innerHTML = "Air pressure is higher than normal.";
-        } else if (data.main.pressure < 1025 && data.main.pressure >= 1000) {
+        } else if (data.main.pressure &lt; 1025 &amp;&amp; data.main.pressure >= 1000) {
             htmlPressureTooltip.innerHTML = "Air pressure is normal.";
-        } else if (data.main.pressure < 1000) {
+        } else if (data.main.pressure &lt; 1000) {
             htmlPressureTooltip.innerHTML = "Air pressure is lower than normal.";
         }
 
-        getJSONData(`https://api.open-meteo.com/v1/forecast?latitude=${data.coord.lat}&longitude=${data.coord.lon}&hourly=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=10`, populateForecastWeather, onError);
+        getJSONData(`https://api.open-meteo.com/v1/forecast?latitude=${data.coord.lat}&amp;longitude=${data.coord.lon}&amp;hourly=temperature_2m,weather_code&amp;daily=weather_code,temperature_2m_max,temperature_2m_min&amp;timezone=auto&amp;forecast_days=10`, populateForecastWeather, onError);
     } else {
         htmlCityName.innerHTML = "City Not Found";
     }
@@ -191,7 +219,7 @@ function populateForecastWeather(data) {
     // populate hourly data
     let hourlyElement;
     let curTimeIndex = now.getHours() + 1;
-    for (let i = 0; i < 24; i++) {
+    for (let i = 0; i &lt; 24; i++) {
         let code = data.hourly.weather_code[curTimeIndex];
 
         hourlyElement = htmlHourlyTemplate.cloneNode(true);
@@ -200,7 +228,7 @@ function populateForecastWeather(data) {
         hourlyElement.querySelector(".time").innerHTML = simplifyTime(data.hourly.time[curTimeIndex]);
         hourlyElement.querySelector(".temp").innerHTML = Math.round(data.hourly.temperature_2m[curTimeIndex]) + "°";
     
-        curTimeIndex < 18 ?
+        curTimeIndex &lt; 18 ?
             hourlyElement.querySelector(".icon i").classList.add(`wi-owm-day-${WEATHER_CODE_MAP[code]}`) :
             hourlyElement.querySelector(".icon i").classList.add(`wi-owm-night-${WEATHER_CODE_MAP[code]}`)
         ;
@@ -215,7 +243,7 @@ function populateForecastWeather(data) {
 
     let dailyElement;
     let weekdayIndex = now.getDay() + 1;
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i &lt; 9; i++) {
         if (weekdayIndex == 7) weekdayIndex = 0;
 
         let code = data.daily.weather_code[i + 1];
@@ -239,7 +267,7 @@ function populateForecastWeather(data) {
 
     // --------------------------- finish current weather population (things requiring time in city's timezone)
     // icon population
-    now.getHours() < 18 ?
+    now.getHours() &lt; 18 ?
         document.querySelector(".hour-summary-container div:first-child i").className = `wi wi-owm-day-${weatherIco}` :
         document.querySelector(".hour-summary-container div:first-child i").className = `wi wi-owm-night-${weatherIco}`
     ;
@@ -255,7 +283,7 @@ function populateForecastWeather(data) {
         bgNew.className = "bg bg-new bg-rain";
     } else if (weatherDesc == "Snow") {
         bgNew.className = "bg bg-new bg-snow";
-    } else if (now.getHours() < 18) {
+    } else if (now.getHours() &lt; 18) {
         bgNew.className = "bg bg-new bg-clear";
     } else if (now.getHours() >= 18) {
         bgNew.className = "bg bg-new bg-night";
@@ -353,4 +381,26 @@ function main() {
     htmlNavDropdown.addEventListener("change", onChange);
 }
 
-main();
+main();</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addKey">addKey</a></li><li><a href="global.html#calculateDewPoint">calculateDewPoint</a></li><li><a href="global.html#getJSONData">getJSONData</a></li><li><a href="global.html#getRandom">getRandom</a></li><li><a href="global.html#main">main</a></li><li><a href="global.html#onChange">onChange</a></li><li><a href="global.html#onError">onError</a></li><li><a href="global.html#populateCurrentWeather">populateCurrentWeather</a></li><li><a href="global.html#populateDropdown">populateDropdown</a></li><li><a href="global.html#populateForecastWeather">populateForecastWeather</a></li><li><a href="global.html#simplifyTime">simplifyTime</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Jan 21 2025 20:45:41 GMT-0400 (Atlantic Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
